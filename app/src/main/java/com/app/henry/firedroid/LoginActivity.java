@@ -1,8 +1,11 @@
 package com.app.henry.firedroid;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -10,12 +13,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
 
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -24,11 +31,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button signInButton;
     private TextView newuser_link;
 
-    private FirebaseUser firebaseUser;
+    private ProgressDialog progressDialog;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        firebaseAuth    = FirebaseAuth.getInstance();
+
+        if(firebaseAuth.getCurrentUser() != null){
+            //open profile activity
+            Toast.makeText(this,"You are logged as "+firebaseAuth.getCurrentUser().getEmail(),Toast.LENGTH_LONG).show();
+        }
+
+
+        progressDialog  = new ProgressDialog(this);
         // Set up the login form.
         mLoginFormView  = findViewById(R.id.login_form);
         mProgressView   = findViewById(R.id.login_progress);
@@ -55,14 +71,55 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override public void onClick(View view){
         switch (view.getId()){
             case R.id.signInButton:
-
-                //TODO:
-
+                userLogin(view);
                 break;
             case R.id.newuser_link:
                 startActivity(new Intent(this,SignUpActivity.class));
                 break;
         }
+    }
+
+
+    private void userLogin(View view){
+        String email    = mEmailView    .getText().toString().trim();
+        String pass     = mPasswordView .getText().toString().trim();
+
+        if(TextUtils.isEmpty(email)){
+            Snackbar.make(view,"Email is required!",Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(pass)){
+            Snackbar.make(view,"Password is required!",Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        if(!email.contains("@")){
+            Snackbar.make(view,"Invalid email address!",Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
+        progressDialog.setTitle("Loading...");
+        progressDialog.show();
+
+
+        firebaseAuth.signInWithEmailAndPassword(email,pass)
+                .addOnCompleteListener(task -> {
+                    if(task.isComplete()){
+                        progressDialog.dismiss();
+                        if(task.isSuccessful()){
+                            //GO TO PROFILE;
+                            Snackbar.make(view,"Ok",Snackbar.LENGTH_LONG).show();
+                            cleanFields();
+                            mEmailView.setSelected(true);
+                        }else{
+                            Snackbar.make(view,"Something went wrong! Try again...",Snackbar.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    private void cleanFields() {
+        mEmailView      .setText("");
+        mPasswordView   .setText("");
     }
 
 }
