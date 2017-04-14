@@ -8,11 +8,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.app.henry.firedroid.LoginActivity">
+    tools:context="com.app.henry.firedroid.SignUpActivity">
 
     <!-- Login progress -->
     <ProgressBar
-        android:id="@+id/login_progress"
+        android:id="@+id/login_progressSignUp"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/email_login_form"
+            android:id="@+id/email_login_formSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -38,12 +38,23 @@
                 android:layout_marginBottom="30dp"
                 />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sing Up"
+                android:textSize="22dp"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="30dp"
+                />
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
-                    android:id="@+id/email"
+                    android:id="@+id/emailSignUp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
@@ -58,7 +69,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/passwordSignUp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
@@ -72,25 +83,14 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/signInButton"
+                android:id="@+id/signUpButton"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/action_sign_in"
+                android:text="@string/action_sign_up"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/newuser_link"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="I don't have an account!"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:textSize="14dp"
-                />
 
         </LinearLayout>
     </ScrollView>

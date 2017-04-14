@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "382381076041",
+    "firebase_url": "https://firedroid-c0c93.firebaseio.com",
+    "project_id": "firedroid-c0c93",
+    "storage_bucket": "firedroid-c0c93.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382381076041:android:9aa8b09ed3409a5e",
+        "android_client_info": {
+          "package_name": "com.app.henry.firedroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382381076041-ut2i64c27kmieh29bs5tpvmqp7a37egb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.henry.firedroid",
+            "certificate_hash": "7f5b8415fc21e2f332a7258f242a5a6170f0e14e"
+          }
+        },
+        {
+          "client_id": "382381076041-ifm4qkteadama86hntdngogud0q3pvv0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBX8vH13loINOWlva04lCEiGob-6Tp_uk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382381076041-ifm4qkteadama86hntdngogud0q3pvv0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
