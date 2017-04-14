@@ -39,8 +39,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseAuth    = FirebaseAuth.getInstance();
 
         if(firebaseAuth.getCurrentUser() != null){
-            //open profile activity
-            Toast.makeText(this,"You are logged as "+firebaseAuth.getCurrentUser().getEmail(),Toast.LENGTH_LONG).show();
+            finish();
+            startActivity(new Intent(this, ProfileActivity.class ));
         }
 
 
@@ -106,20 +106,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if(task.isComplete()){
                         progressDialog.dismiss();
                         if(task.isSuccessful()){
-                            //GO TO PROFILE;
-                            Snackbar.make(view,"Ok",Snackbar.LENGTH_LONG).show();
-                            cleanFields();
-                            mEmailView.setSelected(true);
+                            finish();
+                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class ));
                         }else{
                             Snackbar.make(view,"Something went wrong! Try again...",Snackbar.LENGTH_LONG).show();
                         }
                     }
                 });
-    }
-
-    private void cleanFields() {
-        mEmailView      .setText("");
-        mPasswordView   .setText("");
     }
 
 }

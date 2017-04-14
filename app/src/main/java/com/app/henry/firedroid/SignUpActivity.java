@@ -1,6 +1,7 @@
 package com.app.henry.firedroid;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -76,9 +77,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             if(task.isComplete()) {
                 progressDialog.dismiss();
                 if(task.isSuccessful()){
-                    Snackbar.make(view,"Ok",Snackbar.LENGTH_LONG).show();
-                    cleanFields();
-                    email.setSelected(true);
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class ));
                 }else{
                     Snackbar.make(view,"Couldn't register... Try again!",Snackbar.LENGTH_LONG).show();
                 }
@@ -86,10 +86,5 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
-
-    private void cleanFields(){
-        email.setText("");
-        password.setText("");
-    }
 
 }
