@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 userLogin(view);
                 break;
             case R.id.newuser_link:
+                finish();
                 startActivity(new Intent(this,SignUpActivity.class));
                 break;
         }
@@ -109,7 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class ));
                         }else{
-                            Snackbar.make(view,"Something went wrong! Try again...",Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(view,"Wrong email or password!",Snackbar.LENGTH_LONG).show();
                         }
                     }
                 });

@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,6 +50,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.signUpButton:
                 registerUser(view);
                 break;
+            case android.R.id.home:
+                onBackPressed();
+                break;
         }
     }
 
@@ -68,8 +72,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        progressDialog.setTitle("Please wait!");
-        progressDialog.setMessage("Saving...");
+        progressDialog.setTitle("Loading...");
         progressDialog.show();
 
         firebaseAuth.createUserWithEmailAndPassword(_email,_pass)
@@ -86,5 +89,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) onBackPressed();
+        return super.onOptionsItemSelected(item);
+    }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(this, LoginActivity.class ));
+    }
 }
