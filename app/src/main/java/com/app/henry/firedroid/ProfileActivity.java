@@ -1,21 +1,36 @@
 package com.app.henry.firedroid;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.app.henry.firedroid.utils.MyTaskManager;
+import com.app.henry.firedroid.utils.interfaces.HandleTask;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ProfileActivity extends AppCompatActivity {
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener, HandleTask{
 
     private FirebaseAuth firebaseAuth;
     private TextView tvWelcome;
+
+    private Button btnDownloadImage;
 
 
 
@@ -23,8 +38,10 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        firebaseAuth = FirebaseAuth.getInstance();
-        tvWelcome = (TextView) findViewById(R.id.tvwelcome);
+        firebaseAuth        = FirebaseAuth.getInstance();
+        tvWelcome           = (TextView) findViewById(R.id.tvwelcome);
+        btnDownloadImage    = (Button) findViewById(R.id.btnDownloadImage);
+        btnDownloadImage.setOnClickListener(this);
 
         if(firebaseAuth.getCurrentUser() != null){
             String userName = firebaseAuth.getCurrentUser().getEmail().split("@")[0];
@@ -64,5 +81,26 @@ public class ProfileActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnDownloadImage:
+                downloadImage();
+                break;
+        }
+    }
+
+    private void downloadImage(){
+        MyTaskManager taskManager = new MyTaskManager(this,this);
+        taskManager.execute("https://lh3.googleusercontent.com/-whXBCDVxIto/Vz2Rsyz-UjI/AAAAAAAAiJc/UjvR-M2b9tY5SyKFkDY6Q_MbusEINRXkQ/w1024-h1024/Firebase_16-logo.png");
+    }
+
+    @Override
+    public void afterDownload(Bitmap b) {
+        ImageView iv = (ImageView) findViewById(R.id.imageView);
+        iv.setImageBitmap(b);
     }
 }
